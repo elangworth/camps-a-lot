@@ -4,29 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
     <title>Camps o' Lot</title>
 </head>
 
 <body>
     <div class="outside-container">
         <div class="top-bar">
-            <form>
-                <p>What weather do you want to be in?</p>
-                <label>Temperature</label>
-                <input class="temperature-input" type = "number"></button>
-                <label>When do you want to go?</label>
-                <!-- add max 7-10 day outlook-->
-                <input class="date-input" type="date" value="When do you want to go?"></input>
-            </form>
-        </div>
-        <div class = "inside-container">
             <header>
                 <h1>Welcome to Camps O' Lot</h1>
 
             </header>
+            <form id="camping-form">
+                <p>What weather do you want to be in?</p>
+                <div>
+                    <label>Temperature</label>
+                    <div>
+                        <input id="temp-input" type="number"></input>
+                    </div>
+                </div>
+                <div>
+                    <label>When do you want to go?</label>
+                    <!-- add max 7-10 day outlook-->
+                    <div>
+                        <input id="datepicker" type="text"></input>
+                    </div>
+                </div>
+                <button id = "submit-button" type = "submit" value = "submit" >Submit</button>
+            </form>
+        </div>
+        <div class="inside-container">
+
 
             <main>
-                <section class = "map-screen" >
+                <section class="map-screen">
                     <p>Map showing temperatures requested</p>
 
                 </section>
@@ -41,5 +53,9 @@
     </div>
 
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="assets/js/script.js"></script>
+
 
 </html>
