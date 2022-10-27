@@ -6,53 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
-    <title>Camps o' Lot</title>
+    <title>Flights Tonight</title>
 </head>
 
 <body>
     <div class="outside-container">
         <div class="top-bar">
             <header>
-                <h1>Welcome to Camps O' Lot</h1>
+                <h1>Welcome to Flights Tonight</h1>
 
             </header>
-            <form id="camping-form">
-                <p>What weather do you want to be in?</p>
+            <form id="city-form">
+                <p>Where do you want to go?</p>
                 <div>
-                    <label>Temperature</label>
+                    <label>Destination</label>
                     <div>
-                        <input id="temp-input" type="number"></input>
+                        <input id="city" type="text"></input>
                     </div>
                 </div>
-                <div>
-                    <label>When do you want to go?</label>
-                    <!-- add max 7-10 day outlook-->
-                    <div>
-                        <input id="datepicker" type="text"></input>
-                    </div>
-                </div>
-                <button id = "submit-button" type = "submit" value = "submit" >Submit</button>
+                <button id = "search-button" type = "submit" >Search</button>
             </form>
         </div>
-        <div class="inside-container">
-
-
-            <main>
-                <section class="map-screen">
-                    <p>Map showing temperatures requested</p>
-
-                </section>
-                <section>
-                    <p>List campsites that match area on map selected</p>
-                </section>
-            </main>
+        <hr>
+        <div class="inside-container" id="cities-container">
+            <ul id="cities-searched-list"></ul>
         </div>
-        <footer>
-            <p>footer</p>
-        </footer>
+        <hr>
+        <div id="selected-city-weather-container">
+            <h1 id="selected-city"></h1>
+            <img src="https://openweathermap.org/img/wn" alt="image of current weather" id="city-weather-image"/>
+            <p id="temperature">Temperature: </p>
+            <p id="wind">Wind: </p>
+            <p id="humidity">Humidity: </p>
+        </div>
+        <hr>
+        <div id="five-day-forecast-container">
+            <h2>5 Day Forecast</h2>
+            <div class="row">
+                <div id="day-1">
+                    <h3 id="tomorrow-forecast-date"></h3>
+                    <img src="https://openweathermap.org/img/wn/" alt="image of current weather" id="day-1-weather-image"/>
+                    <p id="tomorrow-temperature">Temperature: </p>
+                    <p id="tomorrow-wind">Wind: </p>
+                    <p id="tomorrow-humidity">Humidity: </p>
+                </div>
+                <div id="day-2">
+                    <h3 id="day-2-forecast-date"></h3>
+                    <img src="https://openweathermap.org/img/wn/" alt="image of current weather" id="day-2-weather-image"/>
+                    <p id="day-2-temperature">Temperature: </p>
+                    <p id="day-2-wind">Wind: </p>
+                    <p id="day-2-humidity">Humidity: </p>
+                </div>
+                <div id="day-3">
+                    <h3 id="day-3-forecast-date"></h3>
+                    <img src="https://openweathermap.org/img/wn/" alt="image of current weather" id="day-3-weather-image"/>
+                    <p id="day-3-temperature">Temperature: </p>
+                    <p id="day-3-wind">Wind: </p>
+                    <p id="day-3-humidity">Humidity: </p>
+                </div>
+                <div id="day-4">
+                    <h3 id="day-4-forecast-date"></h3>
+                    <img src="https://openweathermap.org/img/wn/" alt="image of current weather" id="day-4-weather-image"/>
+                    <p id="day-4-temperature">Temperature: </p>
+                    <p id="day-4-wind">Wind: </p>
+                    <p id="day-4-humidity">Humidity: </p>
+                </div>
+                <div id="day-5">
+                    <h3 id="day-5-forecast-date"></h3>
+                    <img src="https://openweathermap.org/img/wn/" alt="image of current weather" id="day-5-weather-image"/>
+                    <p id="day-5-temperature">Temperature: </p>
+                    <p id="day-5-wind">Wind: </p>
+                    <p id="day-5-humidity">Humidity: </p>
+                </div>
+            </div>
+        </div>
+        <footer>Weather data provided by <a href="https://openweathermap.org/">OpenWeather</a></footer>
     </div>
 
 </body>
+<script src="https://moment.github.io/luxon/global/luxon.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="assets/js/script.js"></script>
