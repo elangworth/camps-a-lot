@@ -16,6 +16,16 @@
                 <h1>Welcome to Flights Tonight</h1>
 
             </header>
+            <form id="departure-form">
+                <p>Where do you want to leave from?</p>
+                <div>
+                    <label>Departure</label>
+                    <div>
+                        <input id="departure" type="text"></input>
+                    </div>
+                </div>
+                <button id = "departure-button" type = "submit" >Search</button>
+            </form>
             <form id="city-form">
                 <p>Where do you want to go?</p>
                 <div>
@@ -26,6 +36,12 @@
                 </div>
                 <button id = "search-button" type = "submit" >Search</button>
             </form>
+        </div>
+        <hr>
+        <div id = departure-city-airport-container>
+            <h1 id="departure-city"></h1>
+            <p id="airport-name">Airport name: </p>
+            <p id="airport-flights">Next Available Flight: </p>
         </div>
         <hr>
         <div class="inside-container" id="cities-container">

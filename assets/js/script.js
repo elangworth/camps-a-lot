@@ -5,6 +5,9 @@ const cityInputField = document.getElementById('city');
 const citiesContainer = document.getElementById('selected-city-weather-container');
 const fiveDayForecastContainer = document.getElementById('five-day-forecast-container');
 
+
+
+
 function updateCities() {
     citiesSearchedUl.innerHTML = '';
     const savedCities = localStorage.getItem('cities');
@@ -170,6 +173,53 @@ function handleClick(e) {
 for(i=0; i<listEL.length; i++){
   listEL[i].addEventListener('click', handleClick);
 }
+
+//set date and grab variable for departure airport
+const departureInputField = document.getElementById('departure');
+const departureButton = document.getElementById('departure-button');
+const departureCity = document.getElementById('departure-city');
+departureCity.innerHTML = "Enter a city to depart from to see the nearest Airport!";
+let departureCityName = departureInputField.value;
+
+
+//display departure city name
+departureButton.addEventListener('click', displayDeparture);
+
+function displayDeparture(e) {
+  e.preventDefault();
+  let departureCityName = departureInputField.value;
+  // performSearches();
+  departureCity.innerHTML = "The closest airport to " + departureCityName + " is:";
+  console.log(departureCityName);
+};
+// departureButton.addEventListener('click', displayDeparture);
+// for(i=0; i<listEL.length; i++){
+//   listEL[i].addEventListener('click', handleClick);
+// }
+
+//API serch to get lat and lon of departure city
+function performDepartureSearches() {
+  const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
+  let parameters = "limit=1&appid=203481f675fae76832d631c5ecaa6b09&q=" + encodeURIComponent(departureCityName);
+  const fullURL = baseURL + parameters;
+  let lat;
+  let lon;
+  let weatherParameters;
+  fetch(fullURL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data){ 
+      lat = data[0].lat;
+      lon = data[0].lon;
+      return fetch(fullWeatherURL);
+    })
+    console.log(lat, lon);
+    console.log(departureCityName);
+  };
+
+  departureButton.addEventListener('click', performDepartureSearches); 
+
 
 //Datepicker widget
 // $(function () {
