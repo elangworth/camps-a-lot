@@ -190,7 +190,8 @@ function displayDeparture(e) {
   let departureCityName = departureInputField.value;
   // performSearches();
   departureCity.innerHTML = "The closest airport to " + departureCityName + " is:";
-  console.log(departureCityName);
+  
+
 };
 // departureButton.addEventListener('click', displayDeparture);
 // for(i=0; i<listEL.length; i++){
@@ -199,12 +200,12 @@ function displayDeparture(e) {
 
 //API serch to get lat and lon of departure city
 function performDepartureSearches() {
+  let departureCityName = departureInputField.value;
   const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
   let parameters = "limit=1&appid=203481f675fae76832d631c5ecaa6b09&q=" + encodeURIComponent(departureCityName);
   const fullURL = baseURL + parameters;
   let lat;
   let lon;
-  let weatherParameters;
   fetch(fullURL)
     .then(function(response) {
       return response.json();
@@ -212,10 +213,9 @@ function performDepartureSearches() {
     .then(function(data){ 
       lat = data[0].lat;
       lon = data[0].lon;
-      return fetch(fullWeatherURL);
+      console.log(lat, lon);
+      console.log(departureCityName);
     })
-    console.log(lat, lon);
-    console.log(departureCityName);
   };
 
   departureButton.addEventListener('click', performDepartureSearches); 
