@@ -61,7 +61,7 @@ persistInput(city);
 const selectedCity = document.getElementById('selected-city');
 const cityName = cityInputField.value;
 const now = luxon.DateTime.now().setZone('America/Los_Angeles').toLocaleString();
-selectedCity.innerHTML = cityName + " " + now;
+selectedCity.innerHTML = "Location:" + " "+ cityName + " " + now;
 
 const temperature =document.getElementById('temperature');
 const wind = document.getElementById('wind');
