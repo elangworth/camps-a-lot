@@ -36,7 +36,7 @@ const saveNewCity = () => {
         localStorage.setItem('cities', JSON.stringify(savedNames));
     }
 }
-searchButton.addEventListener('click', saveNewCity);
+searchButton.addEventListener('click',saveNewCity)
 
 const storedInput = localStorage.getItem('cities');
 const listEL = document.getElementsByTagName('li');
@@ -168,6 +168,8 @@ performSearches();
 function handleClick(e) {
   cityName = e.target.textContent;
   performSearches();
+  
+
   currentCity.innerHTML = cityName + " " + now;
 }
 for(i=0; i<listEL.length; i++){
@@ -176,16 +178,19 @@ for(i=0; i<listEL.length; i++){
 
 //set date and grab variable for departure airport
 const departureInputField = document.getElementById('departure');
-const departureStateInputField = document.getElementById('departure-state');
-const departureButton = document.getElementById('departure-button');
+// const departureStateInputField = document.getElementById('departure-state');
+// const departureButton = document.getElementById('departure-button');
 const departureCity = document.getElementById('departure-city');
+const departureCityAirport = document.getElementById('departure-city-airport');
 departureCity.innerHTML = "Enter a city to depart from to see the nearest Airport!";
 let departureCityName = departureInputField.value;
-let departureStateName = departureStateInputField.value;
+// let departureStateName = departureStateInputField.value;
+const airportName = document.getElementById('airport-name');
+const airportFlights = document.getElementById('airport-flights');
 
 
 //display departure city name
-departureButton.addEventListener('click', displayDeparture);
+searchButton.addEventListener('click', displayDeparture);
 
 function displayDeparture(e) {
   e.preventDefault();
@@ -203,12 +208,14 @@ function displayDeparture(e) {
 //API serch to get lat and lon of departure city
 function performDepartureSearches() {
   let departureCityName = departureInputField.value;
-  let departureStateName = departureStateInputField.value;
+  // let departureStateName = departureStateInputField.value;
   const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
   let parameters = "limit=1&appid=203481f675fae76832d631c5ecaa6b09&q=" + encodeURIComponent(departureCityName);
   const fullURL = baseURL + parameters;
   let lat;
   let lon;
+  
+  //airLabs API Variables
 
   
 
@@ -223,36 +230,57 @@ function performDepartureSearches() {
       lon = data[0].lon;
       console.log(lat, lon);
       console.log(departureCityName);
+      const airLabsBaseURL = "https://airlabs.co/api/v9/nearby?"
+      let airLabsParameters = "lat="+lat +"&lng=" +lon+ "&distance=100&api_key=5ba5c48a-3d78-4f3e-a93b-598bc845d7de";
+      const airLabsfullURL = airLabsBaseURL + airLabsParameters;
+      return fetch(airLabsfullURL)
     })
-
-  //travel advisor API search parameters
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': 'c7989cc56cmshd5eeaa9cb244977p16aefcjsn103379acec08',
-      'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
-      
-    }
-  };
-  const baseStateURL = "https://travel-advisor.p.rapidapi.com/airports/search?query="
-  let stateParameters = encodeURIComponent(departureStateName) + "&locale=en_US";
-  const fullStateURL = baseStateURL + stateParameters;
-  console.log(fullStateURL)  ;
-  fetch(fullStateURL, options)
     .then(response => response.json())
-    .then(response => console.log(response))
-    .catch(err => console.error(err));
-  
-  //USe City input and find closest airport in state by comparing abs value of lat and lon
-  function calculateClosestAirport(){
+    .then(function(data) {
+      data.response.airports.sort((a,b) => b.popularity - a.popularity);
+      console.log(data.response.airports.sort((a,b) => b.popularity - a.popularity));
+      console.log(data.response.airports[0].name);
+      departureCityAirport.innerHTML = data.response.airports[0].name;
+      airportName.innerHTML = data.response.airports[0].iata_code;
+
+
+
+    })
+    // .catch(err => console.error(err));
+  };
     
 
-    }
-  calculateClosestAirport;
-  };
+  //travel advisor API search parameters
+  // const options = {
+  //   method: 'GET',
+  //   headers: {
+  //     'X-RapidAPI-Key': 'c7989cc56cmshd5eeaa9cb244977p16aefcjsn103379acec08',
+  //     'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
+      
+  //   }
+  // };
+  // const baseStateURL = "https://travel-advisor.p.rapidapi.com/airports/search?query="
+  // let stateParameters = encodeURIComponent(departureStateName) + "&locale=en_US";
+  // const fullStateURL = baseStateURL + stateParameters;
+  // console.log(fullStateURL)  ;
+  // fetch(fullStateURL, options)
+  //   .then(response => response.json())
+  //   .then(response => console.log(response))
+  //   .catch(err => console.error(err));
+  
+  // //USe City input and find closest airport in state by comparing abs value of lat and lon
+  // function calculateClosestAirport(){
+    
+
+  //   }
+  // calculateClosestAirport;
+  //Airlabs API search for closest airports to departure city
+  // key: 5ba5c48a-3d78-4f3e-a93b-598bc845d7de
+
+  
   
 
-departureButton.addEventListener('click', performDepartureSearches); 
+searchButton.addEventListener('click', performDepartureSearches); 
 
 
 //Datepicker widget
