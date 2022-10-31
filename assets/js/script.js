@@ -176,10 +176,12 @@ for(i=0; i<listEL.length; i++){
 
 //set date and grab variable for departure airport
 const departureInputField = document.getElementById('departure');
+const departureStateInputField = document.getElementById('departure-state');
 const departureButton = document.getElementById('departure-button');
 const departureCity = document.getElementById('departure-city');
 departureCity.innerHTML = "Enter a city to depart from to see the nearest Airport!";
 let departureCityName = departureInputField.value;
+let departureStateName = departureStateInputField.value;
 
 
 //display departure city name
@@ -201,11 +203,17 @@ function displayDeparture(e) {
 //API serch to get lat and lon of departure city
 function performDepartureSearches() {
   let departureCityName = departureInputField.value;
+  let departureStateName = departureStateInputField.value;
   const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
   let parameters = "limit=1&appid=203481f675fae76832d631c5ecaa6b09&q=" + encodeURIComponent(departureCityName);
   const fullURL = baseURL + parameters;
   let lat;
   let lon;
+
+  
+
+ 
+ 
   fetch(fullURL)
     .then(function(response) {
       return response.json();
@@ -216,9 +224,35 @@ function performDepartureSearches() {
       console.log(lat, lon);
       console.log(departureCityName);
     })
-  };
 
-  departureButton.addEventListener('click', performDepartureSearches); 
+  //travel advisor API search parameters
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': 'c7989cc56cmshd5eeaa9cb244977p16aefcjsn103379acec08',
+      'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
+      
+    }
+  };
+  const baseStateURL = "https://travel-advisor.p.rapidapi.com/airports/search?query="
+  let stateParameters = encodeURIComponent(departureStateName) + "&locale=en_US";
+  const fullStateURL = baseStateURL + stateParameters;
+  console.log(fullStateURL)  ;
+  fetch(fullStateURL, options)
+    .then(response => response.json())
+    .then(response => console.log(response))
+    .catch(err => console.error(err));
+  
+  //USe City input and find closest airport in state by comparing abs value of lat and lon
+  function calculateClosestAirport(){
+    
+
+    }
+  calculateClosestAirport;
+  };
+  
+
+departureButton.addEventListener('click', performDepartureSearches); 
 
 
 //Datepicker widget
