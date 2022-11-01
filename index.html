@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"> -->
     <title>Flight Tonight</title>
 </head>
 <body>
@@ -14,21 +15,22 @@
             <header>
                 <h1>Welcome to Flight Tonight</h1>
             </header>
-            <form id="city-form">
-                <p>Where do you want to go?</p>
-                <div>
-                    <label>Destination</label>
-                    <div>
-                        <input id="destination-city" type="text"></input>
-                    </div>
-                </div>
-                <p>Where do you live?</p>
+            <form class = "form" id="city-form">
+                <h2>Where would you like to depart from?</h2>
             <div>
-                <label>Home City</label>
+                <label>Enter a City name below!</label>
                 <div>
                     <input id="home-city" type="text"></input>
                 </div>
             </div>
+                <h2>Where do you want to fly to?</h2>
+                <div>
+                    <label>Enter a destination City!</label>
+                    <div>
+                        <input id="destination-city" type="text"></input>
+                    </div>
+                </div>
+                
                 <button id = "search-button" type = "submit" >Search</button>
             </form>
         </div>
@@ -37,8 +39,18 @@
             <ul id="cities-searched-list">Destintion Cities</ul>
         </div>
         <hr>
+        <div class = "flight-container">
+            <h1 id="destination-city-message"></h1>
+            <p id="flight-message"></p>
+            <p id = "filght-urgency"></p>
+            
+
+
+
+        </div>
+        <hr>
         <div id="selected-city-weather-container">
-            <h1 id="selected-city"></h1>
+            <h2 id="selected-city"></h2>
             <img src="https://openweathermap.org/img/wn" alt="image of current weather" id="city-weather-image"/>
             <p id="temperature">Temperature: </p>
             <p id="wind">Wind: </p>
@@ -85,16 +97,6 @@
                 </div>
             </div>
         </div>
-        <form id="home-form">
-            <p>Where do you live?</p>
-            <div>
-                <label>Home City</label>
-                <div>
-                    <input id="home-city" type="text"></input>
-                </div>
-            </div>
-            <button id = "submit-button" type = "submit" >Submit</button>
-        </form>
         <footer>Weather data provided by <a href="https://openweathermap.org/">OpenWeather</a>
             <hr>
         Airport Code Data provided by <a href="https://airlabs.co/">AirLabs</a>

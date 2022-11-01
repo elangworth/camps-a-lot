@@ -7,32 +7,32 @@ const fiveDayForecastContainer = document.getElementById('five-day-forecast-cont
 const homeCity = document.getElementById('home-city');
 
 function updateCities() {
-    citiesSearchedUl.innerHTML = '';
-    const savedCities = localStorage.getItem('cities');
-    if (savedCities) {
-        const names = JSON.parse(savedCities);
-        names.forEach(name => {
-            const li = document.createElement('li');
-            li.textContent = name;
-            citiesSearchedUl.appendChild(li);
-            citiesSearchedUl.insertBefore(li, citiesSearchedUl.children[0]);
-        })
-    }
+  citiesSearchedUl.innerHTML = '';
+  const savedCities = localStorage.getItem('cities');
+  if (savedCities) {
+    const names = JSON.parse(savedCities);
+    names.forEach(name => {
+      const li = document.createElement('li');
+      li.textContent = name;
+      citiesSearchedUl.appendChild(li);
+      citiesSearchedUl.insertBefore(li, citiesSearchedUl.children[0]);
+    })
+  }
 }
 updateCities();
 
 //puts the list into local storage
 const saveNewCity = () => {
-    const name = cityInputField.value;
-    if (!name) {
-        return;
-    }
-    const savedCities = localStorage.getItem('cities');
-    if (savedCities) {
-        const savedNames = JSON.parse(savedCities);
-        savedNames.push(name);
-        localStorage.setItem('cities', JSON.stringify(savedNames));
-    }
+  const name = cityInputField.value;
+  if (!name) {
+    return;
+  }
+  const savedCities = localStorage.getItem('cities');
+  if (savedCities) {
+    const savedNames = JSON.parse(savedCities);
+    savedNames.push(name);
+    localStorage.setItem('cities', JSON.stringify(savedNames));
+  }
 }
 searchButton.addEventListener('click', saveNewCity);
 
@@ -40,30 +40,30 @@ const storedInput = localStorage.getItem('cities');
 const listEL = document.getElementsByTagName('li');
 
 if (storedInput) {
-    listEL.textContent = storedInput;
+  listEL.textContent = storedInput;
 }
 
 //displays the last value input into the search field
 const destinationCity = document.getElementById('destination-city');
 function persistInput(input) {
-    let key = "input-" + destinationCity.id; //id of input field
-    let storedValue = localStorage.getItem(key);
-    if (storedValue)
-        input.value = storedValue;
-        destinationCity.addEventListener('input', function() {
-            localStorage.setItem(key, destinationCity.value);
-        })
+  let key = "input-" + destinationCity.id; //id of input field
+  let storedValue = localStorage.getItem(key);
+  if (storedValue)
+    input.value = storedValue;
+  destinationCity.addEventListener('input', function () {
+    localStorage.setItem(key, destinationCity.value);
+  })
 }
 persistInput(destinationCity);
 
 function homeCityPersistInput(input) {
-    let key = "input-" + homeCity.id;
-    let storedValue = localStorage.getItem(key);
-    if (storedValue)
-        input.value = storedValue;
-        homeCity.addEventListener('input', function() {
-            localStorage.setItem(key, homeCity.value);
-        })
+  let key = "input-" + homeCity.id;
+  let storedValue = localStorage.getItem(key);
+  if (storedValue)
+    input.value = storedValue;
+  homeCity.addEventListener('input', function () {
+    localStorage.setItem(key, homeCity.value);
+  })
 }
 homeCityPersistInput(homeCity);
 
@@ -73,7 +73,7 @@ let destinationCityName = cityInputField.value;
 const now = luxon.DateTime.now().setZone('America/Los_Angeles').toLocaleString();
 selectedCity.innerHTML = destinationCityName + " " + now;
 
-const temperature =document.getElementById('temperature');
+const temperature = document.getElementById('temperature');
 const wind = document.getElementById('wind');
 const humidity = document.getElementById('humidity');
 const tomorrowForecastDate = document.getElementById('tomorrow-forecast-date');
@@ -102,7 +102,7 @@ const day2WeatherImage = document.getElementById('day-2-weather-image');
 const day3WeatherImage = document.getElementById('day-3-weather-image');
 const day4WeatherImage = document.getElementById('day-4-weather-image');
 const day5WeatherImage = document.getElementById('day-5-weather-image');
- 
+
 //performs searches on the apis to get lat and lon and then the weather for the city and then the 5 day forecast
 function performSearches(search) {
   const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
@@ -112,24 +112,24 @@ function performSearches(search) {
   let lon;
   let weatherParameters;
   fetch(fullURL)
-    .then(function(response) {
+    .then(function (response) {
       return response.json();
     })
-    .then(function(data){ 
+    .then(function (data) {
       lat = data[0].lat;
       lon = data[0].lon;
       const baseWeatherURL = "https://api.openweathermap.org/data/2.5/weather?&appid=203481f675fae76832d631c5ecaa6b09&units=imperial&lang=en"
-      weatherParameters = "&lat=" +encodeURIComponent(lat) + "&lon=" + encodeURIComponent(lon);
+      weatherParameters = "&lat=" + encodeURIComponent(lat) + "&lon=" + encodeURIComponent(lon);
       //console.log(lat);
       //console.log(lon);
       const fullWeatherURL = baseWeatherURL + weatherParameters;
       return fetch(fullWeatherURL);
     })
-    .then (function(response){
+    .then(function (response) {
       return response.json();
     })
-    .then (function (data){
-      cityWeatherImg.src="https://openweathermap.org/img/wn/" + data.weather[0].icon + '.png';
+    .then(function (data) {
+      cityWeatherImg.src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + '.png';
       cityWeatherImg.alt = data.weather[0].description;
       temperature.innerHTML = 'Temperature: ' + data.main.temp + " F";
       wind.innerHTML = 'Wind: ' + data.wind.speed + " MPH";
@@ -138,36 +138,36 @@ function performSearches(search) {
       const forecastFullURL = forecastBaseURL + weatherParameters;
       return fetch(forecastFullURL);
     })
-    .then(function(response) {
+    .then(function (response) {
       return response.json();
     })
-    .then(function(data) {
+    .then(function (data) {
       tomorrowForecastDate.innerHTML = luxon.DateTime.now().plus({ days: 1 }).setZone('America/Los_Angeles').toLocaleString();
-      day1WeatherImage.src="https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + '.png';
+      day1WeatherImage.src = "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + '.png';
       day1WeatherImage.alt = data.list[0].weather[0].description;
-      tomorrowTemperature.innerHTML =  'Temperature: ' + data.list[0].main.temp + " F";
+      tomorrowTemperature.innerHTML = 'Temperature: ' + data.list[0].main.temp + " F";
       tomorowWind.innerHTML = 'Wind: ' + data.list[0].wind.speed + " MPH";
       tomorrowHumidity.innerHTML = 'Humidity: ' + data.list[0].main.humidity + " %";
       day2ForecastDate.innerHTML = luxon.DateTime.now().plus({ days: 2 }).setZone('America/Los_Angeles').toLocaleString();
-      day2WeatherImage.src="https://openweathermap.org/img/wn/" + data.list[1].weather[0].icon + '.png';
+      day2WeatherImage.src = "https://openweathermap.org/img/wn/" + data.list[1].weather[0].icon + '.png';
       day2WeatherImage.alt = data.list[0].weather[0].description;
       day2Temperature.innerHTML = 'Temperature: ' + data.list[1].main.temp + " F";
       day2Wind.innerHTML = 'Wind: ' + data.list[1].wind.speed + " MPH";
       day2Humidity.innerHTML = 'Humidity: ' + data.list[1].main.humidity + " %";
       day3ForecastDate.innerHTML = luxon.DateTime.now().plus({ days: 3 }).setZone('America/Los_Angeles').toLocaleString();
-      day3WeatherImage.src="https://openweathermap.org/img/wn/" + data.list[2].weather[0].icon + '.png';
+      day3WeatherImage.src = "https://openweathermap.org/img/wn/" + data.list[2].weather[0].icon + '.png';
       day3WeatherImage.alt = data.list[0].weather[0].description;
       day3Temperature.innerHTML = 'Temperature: ' + data.list[2].main.temp + " F";
       day3Wind.innerHTML = 'Wind: ' + data.list[2].wind.speed + " MPH";
       day3Humidity.innerHTML = 'Humidity: ' + data.list[2].main.humidity + " %";
       day4ForecastDate.innerHTML = luxon.DateTime.now().plus({ days: 4 }).setZone('America/Los_Angeles').toLocaleString();
-      day4WeatherImage.src="https://openweathermap.org/img/wn/" + data.list[3].weather[0].icon + '.png';
+      day4WeatherImage.src = "https://openweathermap.org/img/wn/" + data.list[3].weather[0].icon + '.png';
       day4WeatherImage.alt = data.list[0].weather[0].description;
       day4Temperature.innerHTML = 'Temperature: ' + data.list[3].main.temp + " F";
       day4Wind.innerHTML = 'Wind: ' + data.list[3].wind.speed + " MPH";
       day4Humidity.innerHTML = 'Humidity: ' + data.list[3].main.humidity + " %";
       day5ForecastDate.innerHTML = luxon.DateTime.now().plus({ days: 5 }).setZone('America/Los_Angeles').toLocaleString();
-      day5WeatherImage.src="https://openweathermap.org/img/wn/" + data.list[4].weather[0].icon + '.png';
+      day5WeatherImage.src = "https://openweathermap.org/img/wn/" + data.list[4].weather[0].icon + '.png';
       day5WeatherImage.alt = data.list[0].weather[0].description;
       day5Temperature.innerHTML = 'Temperature: ' + data.list[4].main.temp + " F";
       day5Wind.innerHTML = 'Wind: ' + data.list[4].wind.speed + " MPH";
@@ -175,7 +175,7 @@ function performSearches(search) {
     })
 }
 performSearches();
-
+let ol; //original location airport code
 //if a city in the list is clicked this run the searches again based on the city that was clicked
 function handleClick(e) {
   destinationCityName = e.target.textContent;
@@ -184,92 +184,123 @@ function handleClick(e) {
   lookUpHomeAirport();
   selectedCity.innerHTML = destinationCityName + " " + now;
 }
-for(i=0; i<listEL.length; i++){
+for (i = 0; i < listEL.length; i++) {
   listEL[i].addEventListener('click', handleClick);
 }
 let iata_code;
 let dl; //destionation airport code
 // https://airlabs.co/api/v9/nearby?lat=-6.1744&lng=106.8294&distance=20&api_key=2de51778-e1e8-44b5-9373-5466068521b1
 function lookUpDestinationAirport(search) {
-    const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
+  const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
   let parameters = "limit=1&appid=203481f675fae76832d631c5ecaa6b09&q=" + encodeURIComponent(destinationCityName);
   const fullURL = baseURL + parameters;
   let lat;
   let lon;
   let latAndLong;
   fetch(fullURL)
-    .then(function(response) {
+    .then(function (response) {
       return response.json();
     })
-    .then(function(data){ 
+    .then(function (data) {
       lat = data[0].lat;
       lon = data[0].lon;
       let dl;
       const baseAirportURL = "https://airlabs.co/api/v9/nearby?SameSite=Strict&distance=100&api_key=2de51778-e1e8-44b5-9373-5466068521b1";
-      latAndLong = "&lat=" +encodeURIComponent(lat) + "&lng=" + encodeURIComponent(lon);
+      latAndLong = "&lat=" + encodeURIComponent(lat) + "&lng=" + encodeURIComponent(lon);
       const fullAirportCodeURL = baseAirportURL + latAndLong;
       return fetch(fullAirportCodeURL)
     })
-    .then(function(response) {
-        return response.json();
+    .then(function (response) {
+      return response.json();
     })
-    .then(function(data){
-        data.response.airports.sort((a,b) => b.popularity - a.popularity);
-        dl = data.response.airports[0].iata_code;
-        console.log(dl);
+    .then(function (data) {
+      data.response.airports.sort((a, b) => b.popularity - a.popularity);
+      dl = data.response.airports[0].iata_code;
+      console.log(dl);
+      console.log(ol);
+      
     })
 }
 
 lookUpDestinationAirport();
 const homeCityInputField = document.getElementById('home-city');
 let homeCityName = homeCityInputField.value;
-let ol; //original location airport code
+// let ol; //original location airport code
+let destinationCityMessage = document.getElementById("destination-city-message");
+let destinationFlightMessage = document.getElementById("flight-message");
+
 
 function lookUpHomeAirport(search) {
-    const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
+  const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
   let parameters = "limit=1&appid=203481f675fae76832d631c5ecaa6b09&q=" + encodeURIComponent(homeCityName);
   const fullURL = baseURL + parameters;
   let lat;
   let lon;
   let latAndLong;
   fetch(fullURL)
-    .then(function(response) {
+    .then(function (response) {
       return response.json();
     })
-    .then(function(data){ 
+    .then(function (data) {
       lat = data[0].lat;
       lon = data[0].lon;
       const baseAirportURL = "https://airlabs.co/api/v9/nearby?SameSite=Strict&distance=100&api_key=2de51778-e1e8-44b5-9373-5466068521b1";
-      latAndLong = "&lat=" +encodeURIComponent(lat) + "&lng=" + encodeURIComponent(lon);
+      latAndLong = "&lat=" + encodeURIComponent(lat) + "&lng=" + encodeURIComponent(lon);
       const fullAirportCodeURL = baseAirportURL + latAndLong;
       return fetch(fullAirportCodeURL)
     })
-    .then(function(response) {
-        return response.json();
+    .then(function (response) {
+      return response.json();
     })
-    .then(function(data){
-        data.response.airports.sort((a,b) => b.popularity - a.popularity);
-        ol = data.response.airports[0].iata_code;    
-        console.log(ol);    
+    .then(function (data) {
+      data.response.airports.sort((a, b) => b.popularity - a.popularity);
+      ol = data.response.airports[0].iata_code;
+      console.log(ol);
+      const scheduleBaseURL = "https://airlabs.co/api/v9/schedules?";
+      let scheduleParameters = "dep_iata=" + encodeURIComponent(ol) + "&api_key=2de51778-e1e8-44b5-9373-5466068521b1";
+      fullScheduleURL = scheduleBaseURL + scheduleParameters;
+      return(fetch(fullScheduleURL))
     })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data.response);
+      
+      for (let i =0; i< data.response.length; i++){
+        if (dl == data.response[i].arr_iata){
+          destinationCityMessage.innerHTML = "Pack your bags you are going to " + destinationCityName + " !!!";
+          destinationFlightMessage.innerHTML = "The next flight departing from " + ol + " to "+ data.response[i].arr_iata + " is " + data.response[i].airline_icao +" "+ data.response[i].flight_number + " which departs at " + data.response[i].dep_time;
+          console.log("Pack your bags you are going to " + destinationCityName + " !!!" )
+          console.log(data.response[i]);
+          console.log("The next flight departing from " + ol + " to "+ data.response[i].arr_iata + " is " + data.response[i].airline_icao +" "+ data.response[i].flight_number + " which departs at " + data.response[i].dep_time);
+        }  
+    }
+      console.log(data.response[0].arr_iata);
+      console.log(dl);
+      
+    })
+
+      
+    
 }
 lookUpHomeAirport();
 
 function getFlights() {
-    const baseFlightURL = "https://travel-advisor.p.rapidapi.com/flights/create-session" 
-    let parameters = "&ol" + encodeURIComponent(ol) + "&dl" + encodeURIComponent(dl);
-    const fullFlightURL = baseFlightURL + parameters;
-    fetch(fullFlightURL,     {
-        headers: {
-            'X-RapidAPI-Key': '42ae92183emshf6bb70ea2c4e2bcp1bfb1ejsndf54e9e4f409',
-    'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
-        }
+  const baseFlightURL = "https://travel-advisor.p.rapidapi.com/flights/create-session"
+  let parameters = "&ol" + encodeURIComponent(ol) + "&dl" + encodeURIComponent(dl);
+  const fullFlightURL = baseFlightURL + parameters;
+  fetch(fullFlightURL, {
+    headers: {
+      'X-RapidAPI-Key': '42ae92183emshf6bb70ea2c4e2bcp1bfb1ejsndf54e9e4f409',
+      'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
+    }
+  })
+    .then(function (response) {
+      return response.json();
     })
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(data){
-            console.log(data);
-        })
+    .then(function (data) {
+      console.log(data);
+    })
 }
 //getFlights();
