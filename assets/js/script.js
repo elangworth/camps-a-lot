@@ -191,7 +191,7 @@ function handleClick(e) {
   performSearches();
   lookUpDestinationAirport();
   lookUpHomeAirport();
-  console.log('setting destination city name'); 
+
   selectedCity.innerHTML = capitalizeFirstLetter(destinationCityName) + " " + now;
 }
 for (i = 0; i < listEL.length; i++) {
@@ -215,7 +215,7 @@ function lookUpDestinationAirport(search) {
     .then(function (data) {
       lat = data[0].lat;
       lon = data[0].lon;
-      const baseAirportURL = "https://airlabs.co/api/v9/nearby?SameSite=Strict&distance=100&api_key=2de51778-e1e8-44b5-9373-5466068521b1";
+      const baseAirportURL = "https://airlabs.co/api/v9/nearby?SameSite=Strict&distance=100&api_key=5ba5c48a-3d78-4f3e-a93b-598bc845d7de";
       latAndLong = "&lat=" + encodeURIComponent(lat) + "&lng=" + encodeURIComponent(lon);
       const fullAirportCodeURL = baseAirportURL + latAndLong;
       return fetch(fullAirportCodeURL)
@@ -251,7 +251,7 @@ function lookUpHomeAirport(search) {
     .then(function (data) {
       lat = data[0].lat;
       lon = data[0].lon;
-      const baseAirportURL = "https://airlabs.co/api/v9/nearby?SameSite=Strict&distance=100&api_key=2de51778-e1e8-44b5-9373-5466068521b1";
+      const baseAirportURL = "https://airlabs.co/api/v9/nearby?SameSite=Strict&distance=100&api_key=5ba5c48a-3d78-4f3e-a93b-598bc845d7de";
       latAndLong = "&lat=" + encodeURIComponent(lat) + "&lng=" + encodeURIComponent(lon);
       const fullAirportCodeURL = baseAirportURL + latAndLong;
       return fetch(fullAirportCodeURL)
@@ -264,7 +264,7 @@ function lookUpHomeAirport(search) {
       ol = data.response.airports[0].iata_code;
       console.log(ol);
       const scheduleBaseURL = "https://airlabs.co/api/v9/routes?";
-      let scheduleParameters = "dep_iata=" + encodeURIComponent(ol) + "&api_key=2de51778-e1e8-44b5-9373-5466068521b1" + "&arr_iata=" + encodeURIComponent(dl);
+      let scheduleParameters = "dep_iata=" + encodeURIComponent(ol) + "&api_key=5ba5c48a-3d78-4f3e-a93b-598bc845d7de" + "&arr_iata=" + encodeURIComponent(dl);
       fullScheduleURL = scheduleBaseURL + scheduleParameters;
       return(fetch(fullScheduleURL))
     })
@@ -275,11 +275,11 @@ function lookUpHomeAirport(search) {
       console.log(data.response);
       for (let i =0; i< data.response.length; i++){
         if (dl !== data.response[i].arr_iata){
-          noDestinationCityMessage.innerHTML = "There is not an airport in " + capitalizeFirstLetter(destinationCityName) + " :( " + "Try a different destination city";
+          noDestinationCityMessage.innerHTML = "Try clicking on the city " + capitalizeFirstLetter(destinationCityName) + " again";
         }  
         else{
           destinationCityMessage.innerHTML = "Pack your bags you are going to " + capitalizeFirstLetter(destinationCityName) + " !!!";
-          destinationFlightMessage.innerHTML = "The next flight departing from " + ol + " to "+ data.response[i].arr_iata + " is " + data.response[i].airline_icao +" "+ data.response[i].flight_number + " which departs at " + data.response[i].dep_time;
+          destinationFlightMessage.innerHTML = "There is a flight departing from " + ol + " to "+ data.response[i].arr_iata + " is " + data.response[i].airline_icao +" "+ data.response[i].flight_number + " which departs at " + data.response[i].dep_time;
           console.log("Pack your bags you are going to " + destinationCityName + " !!!" )
           console.log("The next flight departing from " + ol + " to "+ data.response[i].arr_iata + " is " + data.response[i].airline_icao +" "+ data.response[i].flight_number + " which departs at " + data.response[i].dep_time);
           noDestinationCityMessage.style.display = "none";
