@@ -46,7 +46,7 @@ h1{
 
 .title.is-1 {
 
-    color: white;
+    color:#4a4a4a;
     font-size: 1rem;
 }
 
@@ -173,3 +173,11 @@ h1{
     padding: 20px;
 }
 
+.columns{
+    flex-wrap: wrap;
+}
+
+.navbar{
+    height: 100px;
+
+}
