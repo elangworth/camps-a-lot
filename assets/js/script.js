@@ -6,6 +6,11 @@ const citiesContainer = document.getElementById('selected-city-weather-container
 const fiveDayForecastContainer = document.getElementById('five-day-forecast-container');
 const homeCity = document.getElementById('home-city');
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
 function updateCities() {
   citiesSearchedUl.innerHTML = '';
   const savedCities = localStorage.getItem('cities');
@@ -182,7 +187,7 @@ function handleClick(e) {
   performSearches();
   lookUpDestinationAirport();
   lookUpHomeAirport();
-  selectedCity.innerHTML = destinationCityName + " " + now;
+  selectedCity.innerHTML = capitalizeFirstLetter(destinationCityName) + " " + now;
 }
 for (i = 0; i < listEL.length; i++) {
   listEL[i].addEventListener('click', handleClick);
@@ -225,7 +230,7 @@ const homeCityInputField = document.getElementById('home-city');
 let homeCityName = homeCityInputField.value;
 let destinationCityMessage = document.getElementById("destination-city-message");
 let destinationFlightMessage = document.getElementById("flight-message");
-
+let noDestinationCityMessage = document.getElementById("no-destination-city");
 
 function lookUpHomeAirport(search) {
   const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
@@ -264,17 +269,21 @@ function lookUpHomeAirport(search) {
     .then(function (data) {
       console.log(data.response);
       for (let i =0; i< data.response.length; i++){
-        //changing if (dl== data.... to ol)
-        if (dl == data.response[i].arr_iata){
-          destinationCityMessage.innerHTML = "Pack your bags you are going to " + destinationCityName + " !!!";
+        if (dl !== data.response[i].arr_iata){
+          noDestinationCityMessage.innerHTML = "There is not an airport in " + capitalizeFirstLetter(destinationCityName) + " :( " + "Try a different destination City";
+          
+        }  
+        else{
+          destinationCityMessage.innerHTML = "Pack your bags you are going to " + capitalizeFirstLetter(destinationCityName) + " !!!";
           destinationFlightMessage.innerHTML = "The next flight departing from " + ol + " to "+ data.response[i].arr_iata + " is " + data.response[i].airline_icao +" "+ data.response[i].flight_number + " which departs at " + data.response[i].dep_time;
           console.log("Pack your bags you are going to " + destinationCityName + " !!!" )
-          console.log(data.response[i]);
           console.log("The next flight departing from " + ol + " to "+ data.response[i].arr_iata + " is " + data.response[i].airline_icao +" "+ data.response[i].flight_number + " which departs at " + data.response[i].dep_time);
-        }  
+          noDestinationCityMessage.style.display = "none";
+        }
+        
+        
     }
-      console.log(data.response[0].arr_iata);
-      console.log(dl);
+      
       
     })
 
