@@ -1,9 +1,6 @@
 body {
-<<<<<<< HEAD
     background-color: skyblue;
-=======
     background-color: #2596BE;
->>>>>>> 88d2c305336017d415852223021807af767de043
     text-align: center;
     
 }
@@ -22,7 +19,6 @@ p{
 } */
 
 #selected-city{
-<<<<<<< HEAD
     font-weight: bold;
     color: black;
     font-size: 60px;
@@ -38,12 +34,6 @@ p{
     margin: auto;
     width: 20%;
    padding: 10px;
-}
-=======
-    
-    color: black;
-    font-size: 2rem;
-    
 }
 
 .title.is-1{
@@ -131,4 +121,3 @@ p{
    justify-content: space-evenly; 
 }
 
->>>>>>> 88d2c305336017d415852223021807af767de043
