@@ -36,7 +36,7 @@ const saveNewCity = () => {
         localStorage.setItem('cities', JSON.stringify(savedNames));
     }
 }
-searchButton.addEventListener('click',saveNewCity)
+searchButton.addEventListener('click',saveNewCity);
 
 const storedInput = localStorage.getItem('cities');
 const listEL = document.getElementsByTagName('li');
@@ -160,6 +160,7 @@ function performSearches(search) {
       day5Temperature.innerHTML = 'Temperature: ' + data.list[4].main.temp + " F";
       day5Wind.innerHTML = 'Wind: ' + data.list[4].wind.speed + " MPH";
       day5Humidity.innerHTML = 'Humidity: ' + data.list[4].main.humidity + " %";
+      
     })
 }
 performSearches();
@@ -176,15 +177,12 @@ for(i=0; i<listEL.length; i++){
   listEL[i].addEventListener('click', handleClick);
 }
 
-//set date and grab variable for departure airport
+// grab variable for departure airport
 const departureInputField = document.getElementById('departure');
-// const departureStateInputField = document.getElementById('departure-state');
-// const departureButton = document.getElementById('departure-button');
 const departureCity = document.getElementById('departure-city');
 const departureCityAirport = document.getElementById('departure-city-airport');
 departureCity.innerHTML = "Enter a city to depart from to see the nearest Airport!";
 let departureCityName = departureInputField.value;
-// let departureStateName = departureStateInputField.value;
 const airportName = document.getElementById('airport-name');
 const airportFlights = document.getElementById('airport-flights');
 
@@ -195,18 +193,14 @@ searchButton.addEventListener('click', displayDeparture);
 function displayDeparture(e) {
   e.preventDefault();
   let departureCityName = departureInputField.value;
-  // performSearches();
   departureCity.innerHTML = "The closest airport to " + departureCityName + " is:";
   
 
 };
-// departureButton.addEventListener('click', displayDeparture);
-// for(i=0; i<listEL.length; i++){
-//   listEL[i].addEventListener('click', handleClick);
-// }
 
 //API serch to get lat and lon of departure city
-function performDepartureSearches() {
+function performDepartureSearches(e) {
+  e.preventDefault;
   let departureCityName = departureInputField.value;
   // let departureStateName = departureStateInputField.value;
   const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
@@ -214,13 +208,7 @@ function performDepartureSearches() {
   const fullURL = baseURL + parameters;
   let lat;
   let lon;
-  
-  //airLabs API Variables
 
-  
-
- 
- 
   fetch(fullURL)
     .then(function(response) {
       return response.json();
@@ -242,12 +230,13 @@ function performDepartureSearches() {
       console.log(data.response.airports[0].name);
       departureCityAirport.innerHTML = data.response.airports[0].name;
       airportName.innerHTML = data.response.airports[0].iata_code;
-
-
-
     })
+   
+
+    
     // .catch(err => console.error(err));
-  };
+};
+searchButton.addEventListener('click', performDepartureSearches); 
     
 
   //travel advisor API search parameters
@@ -280,7 +269,7 @@ function performDepartureSearches() {
   
   
 
-searchButton.addEventListener('click', performDepartureSearches); 
+
 
 
 //Datepicker widget
