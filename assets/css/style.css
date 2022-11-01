@@ -73,4 +73,5 @@ h1{
 
 .navbar{
     height: 100px;
+    display: none;
 }
