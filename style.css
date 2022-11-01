@@ -1,12 +1,12 @@
 body {
-    background-color: blue;
+    background-color: skyblue;
     text-align: center;
     
 }
 
 
 p{
-    color: brown;
+    color: black;
     text-indent: 20px;
 }
 /* .card{
@@ -19,12 +19,18 @@ p{
 
 #selected-city{
     font-weight: bold;
-    color: white;
+    color: black;
     font-size: 60px;
 }
 
 .title.is-1{
     font-weight: bold;
-    color: white;
+    color: black;
     font-size: 60px;
+}
+
+.image{
+    margin: auto;
+    width: 20%;
+   padding: 10px;
 }
