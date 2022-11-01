@@ -204,7 +204,6 @@ function lookUpDestinationAirport(search) {
     .then(function (data) {
       lat = data[0].lat;
       lon = data[0].lon;
-      let dl;
       const baseAirportURL = "https://airlabs.co/api/v9/nearby?SameSite=Strict&distance=100&api_key=2de51778-e1e8-44b5-9373-5466068521b1";
       latAndLong = "&lat=" + encodeURIComponent(lat) + "&lng=" + encodeURIComponent(lon);
       const fullAirportCodeURL = baseAirportURL + latAndLong;
@@ -218,14 +217,12 @@ function lookUpDestinationAirport(search) {
       dl = data.response.airports[0].iata_code;
       console.log(dl);
       console.log(ol);
-      
     })
 }
 
 lookUpDestinationAirport();
 const homeCityInputField = document.getElementById('home-city');
 let homeCityName = homeCityInputField.value;
-// let ol; //original location airport code
 let destinationCityMessage = document.getElementById("destination-city-message");
 let destinationFlightMessage = document.getElementById("flight-message");
 
@@ -266,8 +263,8 @@ function lookUpHomeAirport(search) {
     })
     .then(function (data) {
       console.log(data.response);
-      
       for (let i =0; i< data.response.length; i++){
+        //changing if (dl== data.... to ol)
         if (dl == data.response[i].arr_iata){
           destinationCityMessage.innerHTML = "Pack your bags you are going to " + destinationCityName + " !!!";
           destinationFlightMessage.innerHTML = "The next flight departing from " + ol + " to "+ data.response[i].arr_iata + " is " + data.response[i].airline_icao +" "+ data.response[i].flight_number + " which departs at " + data.response[i].dep_time;

@@ -13,44 +13,43 @@
     <header class="bd-navbar navbar">
         <div class="navbar-brand">
             <img class="navbar-item is-hidden-mobile" src="./assets/img/Flight Tonight.png" alt="flight_tonight_logo" id="logo">
-            <h1 class="navbar-content" id="welcome">Welcome to Flight Tonight</h1>
-        </div> 
-        
+            <h1 class="navbar-content has-text-centered" id="welcome">Welcome to Flight Tonight</h1>
+        </div>    
     </header>
     <div class="outside-container">
         <div class="top-bar">
             <form class = "form" id="city-form">
-                <h2>Where would you like to depart from?</h2>
+                <h2 id="question-1">Where would you like to depart from?</h2>
             <div>
                 <label>Enter a City name below!</label>
                 <div>
                     <input id="home-city" type="text"></input>
                 </div>
             </div>
-                <h2>Where do you want to fly to?</h2>
+                <h2 id="question-2">Where do you want to fly to?</h2>
                 <div>
                     <label>Enter a destination City!</label>
                     <div>
                         <input id="destination-city" type="text"></input>
                     </div>
                 </div>
-                
                 <button id = "search-button" type = "submit" >Search</button>
             </form>
         </div>
         <hr>
         <div class="box" id="cities-container">
-            <h2 id="cities-searched-title">Cities Searched</h2>
+            <h1 id="cities-searched-title">Cities Searched</h1>
             <ul id="cities-searched-list">Destintion Cities</ul>
         </div>
         <hr>
         <div class = "flight-container">
             <h1 id="destination-city-message"></h1>
             <p id="flight-message"></p>
-            <p id = "filght-urgency"></p>
+            <p id ="flight-urgency"></p>
         </div>
         <hr>
         <div id="selected-city-weather-container">
+            <h1 id="current-weather">Current Weather</h1>
             <h2 id="selected-city"></h2>
             <img src="https://openweathermap.org/img/wn" alt="image of current weather" id="city-weather-image"/>
             <p id="temperature">Temperature: </p>
@@ -59,7 +58,7 @@
         </div>
         <hr>
         <div class="box" id="five-day-forecast-container">
-            <h2 class="title is-1">5 Day Forecast</h2>
+            <h1 id="five-day-forecast">5 Day Forecast</h1>
             <div class="columns is-mobile">
                 <div class="column" id="day-1">
                     <h3 id="tomorrow-forecast-date"></h3>

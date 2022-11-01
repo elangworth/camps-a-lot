@@ -2,10 +2,6 @@ body {
     background-color: #2596BE;
     text-align: center;
 }
-/*
-#welcome {
-    padding: 20px;
-}*/
 
 p {
     color: black;
@@ -42,9 +38,8 @@ header img #logo {
     padding: 20px;
 }
 
-
 #welcome {
-    padding: 20px;
+    padding: 5px;
 }
 
 .column {
@@ -66,25 +61,17 @@ header img #logo {
 
 .navbar{
     height: 100px;
+    justify-content: center;
 }
 
-#cities-searched-title {
-    color:#2596BE;  
-    font-size: larger;
+#cities-searched-title, #current-weather, #five-day-forecast {  
+    font-weight: bold;
 }
 
 #cities-searched-list li:hover {
     cursor: pointer;
 }
 
-  @media only screen and (min-width: 400px) {
-    .navbar {
-      height: 160px;
-      display: block;
-    }
-    .navbar-item {
-        background: no-repeat center center;
-        background-size: cover;
-        width: 100px;
-    }
-  }
+#question-1, #question-2 {
+    font-weight: bold;
+}
