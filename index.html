@@ -19,23 +19,24 @@
             <img class="image" src="/Users/mariamabah/Desktop/camps-a-lot/Flight_Tonight_Logo.png" alt="flight_tonight_logo"> 
 
         </header>
-        <div class="columns">
+        <div class="columns" id =input-box >
            
-            <form class="column">
+            <form class="column form">
                 <p class="title is-4">Where do you want to leave from?</p>
                 <div class="field is-grouped">
                     <p class="control is-expanded" >
                        
                         <div>
-                            <input  class="input" id="departure" type="text" placeholder="departure"></input>
+                            <input  class="input" id="departure" type="text" placeholder="departure City">Departure City</input>
+                            <!-- <input  class="input" id="departure-state" type="text" placeholder="departure State">Departure State</input> -->
                         </div>
                     </p>
                     
-                        <button class="button is-info" id = "departure-button" type = "submit" >Search</button>
+                        <!-- <button class="button is-info" id = "departure-button" type = "submit" >Search</button> -->
                     </p>
                 </div>
             </form>
-            <form class="column">
+            <form class="column form" >
                 <p  class="title is-4">Where do you want to go?</p>
                 <div class="field is-grouped">
                
@@ -53,15 +54,18 @@
         
         <div id = departure-city-airport-container>
             <h1 id="departure-city"></h1>
-            <p id="airport-name">Airport name: </p>
-            <p id="airport-flights">Next Available Flight: </p>
+            <h2 id="departure-city-airport"></h2>
+            <p >Airport name: </p>
+            <p id="airport-name"></p>
+            <p>Next Available Flight:</p>
+            <p id="airport-flights"></p>
         </div>
       
         <div class="inside-container" id="cities-container">
             <ul id="cities-searched-list"></ul>
         </div>
         <hr>
-        <div id="selected-city-weather-container">
+        <div class="box" id="selected-city-weather-container">
             <h1 id="selected-city"></h1>
             <h1 class="title is-3">current temperature</h1>
             <img src="https://openweathermap.org/img/wn" alt="image of current weather" id="city-weather-image"/>
@@ -72,7 +76,7 @@
         <hr>
         <h2 class="title is-1">5 Day Forecast</h2>
     
-        <div id="five-day-forecast-container">
+        <div class ="box" id="five-day-forecast-container">
           
             <div class="columns is-mobile">
                 <div class="column">
