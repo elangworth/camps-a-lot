@@ -10,7 +10,6 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-
 function updateCities() {
   citiesSearchedUl.innerHTML = '';
   const savedCities = localStorage.getItem('cities');
@@ -37,9 +36,14 @@ const saveNewCity = () => {
     const savedNames = JSON.parse(savedCities);
     savedNames.push(name);
     localStorage.setItem('cities', JSON.stringify(savedNames));
+  } else {
+    const savedNames = [name];
+    localStorage.setItem('cities', JSON.stringify(savedNames));
   }
-}
+} 
+
 searchButton.addEventListener('click', saveNewCity);
+searchButton.addEventListener('click', lookUpDestinationAirport);
 
 const storedInput = localStorage.getItem('cities');
 const listEL = document.getElementsByTagName('li');
@@ -180,13 +184,14 @@ function performSearches(search) {
     })
 }
 performSearches();
-let ol; //original location airport code
+
 //if a city in the list is clicked this run the searches again based on the city that was clicked
 function handleClick(e) {
   destinationCityName = e.target.textContent;
   performSearches();
   lookUpDestinationAirport();
   lookUpHomeAirport();
+  console.log('setting destination city name'); 
   selectedCity.innerHTML = capitalizeFirstLetter(destinationCityName) + " " + now;
 }
 for (i = 0; i < listEL.length; i++) {
@@ -194,6 +199,7 @@ for (i = 0; i < listEL.length; i++) {
 }
 let iata_code;
 let dl; //destionation airport code
+let ol; //original location airport code
 // https://airlabs.co/api/v9/nearby?lat=-6.1744&lng=106.8294&distance=20&api_key=2de51778-e1e8-44b5-9373-5466068521b1
 function lookUpDestinationAirport(search) {
   const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
@@ -221,7 +227,6 @@ function lookUpDestinationAirport(search) {
       data.response.airports.sort((a, b) => b.popularity - a.popularity);
       dl = data.response.airports[0].iata_code;
       console.log(dl);
-      console.log(ol);
     })
 }
 
@@ -258,8 +263,8 @@ function lookUpHomeAirport(search) {
       data.response.airports.sort((a, b) => b.popularity - a.popularity);
       ol = data.response.airports[0].iata_code;
       console.log(ol);
-      const scheduleBaseURL = "https://airlabs.co/api/v9/schedules?";
-      let scheduleParameters = "dep_iata=" + encodeURIComponent(ol) + "&api_key=2de51778-e1e8-44b5-9373-5466068521b1";
+      const scheduleBaseURL = "https://airlabs.co/api/v9/routes?";
+      let scheduleParameters = "dep_iata=" + encodeURIComponent(ol) + "&api_key=2de51778-e1e8-44b5-9373-5466068521b1" + "&arr_iata=" + encodeURIComponent(dl);
       fullScheduleURL = scheduleBaseURL + scheduleParameters;
       return(fetch(fullScheduleURL))
     })
@@ -270,8 +275,7 @@ function lookUpHomeAirport(search) {
       console.log(data.response);
       for (let i =0; i< data.response.length; i++){
         if (dl !== data.response[i].arr_iata){
-          noDestinationCityMessage.innerHTML = "There is not an airport in " + capitalizeFirstLetter(destinationCityName) + " :( " + "Try a different destination City";
-          
+          noDestinationCityMessage.innerHTML = "There is not an airport in " + capitalizeFirstLetter(destinationCityName) + " :( " + "Try a different destination city";
         }  
         else{
           destinationCityMessage.innerHTML = "Pack your bags you are going to " + capitalizeFirstLetter(destinationCityName) + " !!!";
@@ -280,33 +284,8 @@ function lookUpHomeAirport(search) {
           console.log("The next flight departing from " + ol + " to "+ data.response[i].arr_iata + " is " + data.response[i].airline_icao +" "+ data.response[i].flight_number + " which departs at " + data.response[i].dep_time);
           noDestinationCityMessage.style.display = "none";
         }
-        
-        
-    }
-      
-      
+    }   
     })
-
-      
-    
 }
 lookUpHomeAirport();
-
-function getFlights() {
-  const baseFlightURL = "https://travel-advisor.p.rapidapi.com/flights/create-session"
-  let parameters = "&ol" + encodeURIComponent(ol) + "&dl" + encodeURIComponent(dl);
-  const fullFlightURL = baseFlightURL + parameters;
-  fetch(fullFlightURL, {
-    headers: {
-      'X-RapidAPI-Key': '42ae92183emshf6bb70ea2c4e2bcp1bfb1ejsndf54e9e4f409',
-      'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
-    }
-  })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-    })
-}
-//getFlights();
+lookUpDestinationAirport();
