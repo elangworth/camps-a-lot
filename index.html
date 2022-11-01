@@ -11,8 +11,11 @@
 </head>
 <body>
     <header class="bd-navbar navbar">
-        <h1 class="navbar-content" id="welcome">Welcome to Flight Tonight</h1>
-        <img class="navbar-brand" src="./assets/img/Flight Tonight.png" alt="flight_tonight_logo" id="logo"> 
+        <div class="navbar-brand">
+            <img class="navbar-item is-hidden-mobile" src="./assets/img/Flight Tonight.png" alt="flight_tonight_logo" id="logo">
+            <h1 class="navbar-content" id="welcome">Welcome to Flight Tonight</h1>
+        </div> 
+        
     </header>
     <div class="outside-container">
         <div class="top-bar">
@@ -37,6 +40,7 @@
         </div>
         <hr>
         <div class="box" id="cities-container">
+            <h2 id="cities-searched-title">Cities Searched</h2>
             <ul id="cities-searched-list">Destintion Cities</ul>
         </div>
         <hr>
