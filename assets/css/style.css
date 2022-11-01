@@ -1,5 +1,4 @@
 body {
-    background-color: skyblue;
     background-color: #2596BE;
     text-align: center;
 
@@ -35,7 +34,7 @@ h1{
 
 .title.is-1 {
     font-weight: bold;
-    color: black;
+    color: white;
     font-size: 60px;
 }
 

@@ -5,11 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"> -->
     <title>Flight Tonight</title>
 </head>
 <body>
+    <header class="bd-navbar navbar">
+        <h1 class="navbar-content">Welcome to Flight Tonight</h1>
+        <img class="navbar-brand" src="./assets/img/Flight Tonight.png" alt="flight_tonight_logo" id="logo"> 
+    </header>
     <div class="outside-container">
         <div class="top-bar">
             <header>
@@ -57,38 +62,38 @@
             <p id="humidity">Humidity: </p>
         </div>
         <hr>
-        <div id="five-day-forecast-container">
-            <h2>5 Day Forecast</h2>
-            <div class="row">
-                <div id="day-1">
+        <div class="box" id="five-day-forecast-container">
+            <h2 class="title is-1">5 Day Forecast</h2>
+            <div class="columns is-mobile">
+                <div class="column" id="day-1">
                     <h3 id="tomorrow-forecast-date"></h3>
                     <img src="https://openweathermap.org/img/wn/" alt="image of current weather" id="day-1-weather-image"/>
                     <p id="tomorrow-temperature">Temperature: </p>
                     <p id="tomorrow-wind">Wind: </p>
                     <p id="tomorrow-humidity">Humidity: </p>
                 </div>
-                <div id="day-2">
+                <div class="column" id="day-2">
                     <h3 id="day-2-forecast-date"></h3>
                     <img src="https://openweathermap.org/img/wn/" alt="image of current weather" id="day-2-weather-image"/>
                     <p id="day-2-temperature">Temperature: </p>
                     <p id="day-2-wind">Wind: </p>
                     <p id="day-2-humidity">Humidity: </p>
                 </div>
-                <div id="day-3">
+                <div class="column" id="day-3">
                     <h3 id="day-3-forecast-date"></h3>
                     <img src="https://openweathermap.org/img/wn/" alt="image of current weather" id="day-3-weather-image"/>
                     <p id="day-3-temperature">Temperature: </p>
                     <p id="day-3-wind">Wind: </p>
                     <p id="day-3-humidity">Humidity: </p>
                 </div>
-                <div id="day-4">
+                <div class="column" id="day-4">
                     <h3 id="day-4-forecast-date"></h3>
                     <img src="https://openweathermap.org/img/wn/" alt="image of current weather" id="day-4-weather-image"/>
                     <p id="day-4-temperature">Temperature: </p>
                     <p id="day-4-wind">Wind: </p>
                     <p id="day-4-humidity">Humidity: </p>
                 </div>
-                <div id="day-5">
+                <div class="column" id="day-5">
                     <h3 id="day-5-forecast-date"></h3>
                     <img src="https://openweathermap.org/img/wn/" alt="image of current weather" id="day-5-weather-image"/>
                     <p id="day-5-temperature">Temperature: </p>
@@ -97,9 +102,9 @@
                 </div>
             </div>
         </div>
-        <footer>Weather data provided by <a href="https://openweathermap.org/">OpenWeather</a>
-            <hr>
-        Airport Code Data provided by <a href="https://airlabs.co/">AirLabs</a>
+        <footer>
+            <p>Weather data provided by <a href="https://openweathermap.org/">OpenWeather</a></p>
+            <p>Airport Code Data provided by <a href="https://airlabs.co/">AirLabs</a></p>
         </footer>
     </div>
 </body>
