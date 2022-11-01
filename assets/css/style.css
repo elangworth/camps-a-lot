@@ -2,10 +2,10 @@ body {
     background-color: #2596BE;
     text-align: center;
 }
-
+/*
 #welcome {
     padding: 20px;
-}
+}*/
 
 p {
     color: black;
@@ -16,20 +16,13 @@ h1{
     font-size: 2.5rem;
 }
 
-.title.is-1 {
-    font-weight: bold;
-    color: white;
-    font-size: 60px;
-}
-/*
-.image {
+header img #logo {
     margin: auto;
-    width: 20%;
+    width: 100px;
     padding: 10px;
 }
-*/
-.title.is-1 {
 
+.title.is-1 {
     color:#4a4a4a;
     font-size: 1rem;
 }
@@ -74,3 +67,16 @@ h1{
 .navbar{
     height: 100px;
 }
+
+
+  @media only screen and (min-width: 400px) {
+    .navbar {
+      height: 160px;
+      display: block;
+    }
+    .navbar-item {
+        background: no-repeat center center;
+        background-size: cover;
+        width: 100px;
+    }
+  }
