@@ -68,6 +68,14 @@ header img #logo {
     height: 100px;
 }
 
+#cities-searched-title {
+    color:#2596BE;  
+    font-size: larger;
+}
+
+#cities-searched-list li:hover {
+    cursor: pointer;
+}
 
   @media only screen and (min-width: 400px) {
     .navbar {
