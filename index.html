@@ -1,35 +1,39 @@
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-
-    <title>Flights Tonight</title>
+    <title>Flight Tonight</title>
 </head>
-
 <body>
     <div class="outside-container">
         <div class="top-bar">
             <header>
-                <h1>Welcome to Flights Tonight</h1>
-
+                <h1>Welcome to Flight Tonight</h1>
             </header>
             <form id="city-form">
                 <p>Where do you want to go?</p>
                 <div>
                     <label>Destination</label>
                     <div>
-                        <input id="city" type="text"></input>
+                        <input id="destination-city" type="text"></input>
                     </div>
                 </div>
+                <p>Where do you live?</p>
+            <div>
+                <label>Home City</label>
+                <div>
+                    <input id="home-city" type="text"></input>
+                </div>
+            </div>
                 <button id = "search-button" type = "submit" >Search</button>
             </form>
         </div>
         <hr>
         <div class="inside-container" id="cities-container">
-            <ul id="cities-searched-list"></ul>
+            <ul id="cities-searched-list">Destintion Cities</ul>
         </div>
         <hr>
         <div id="selected-city-weather-container">
@@ -80,14 +84,24 @@
                 </div>
             </div>
         </div>
-        <footer>Weather data provided by <a href="https://openweathermap.org/">OpenWeather</a></footer>
+        <form id="home-form">
+            <p>Where do you live?</p>
+            <div>
+                <label>Home City</label>
+                <div>
+                    <input id="home-city" type="text"></input>
+                </div>
+            </div>
+            <button id = "submit-button" type = "submit" >Submit</button>
+        </form>
+        <footer>Weather data provided by <a href="https://openweathermap.org/">OpenWeather</a>
+            <hr>
+        Airport Code Data provided by <a href="https://airlabs.co/">AirLabs</a>
+        </footer>
     </div>
-
 </body>
 <script src="https://moment.github.io/luxon/global/luxon.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="assets/js/script.js"></script>
-
-
 </html>

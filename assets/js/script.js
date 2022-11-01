@@ -1,9 +1,10 @@
 
 const searchButton = document.getElementById('search-button');
 const citiesSearchedUl = document.getElementById('cities-searched-list');
-const cityInputField = document.getElementById('city');
+const cityInputField = document.getElementById('destination-city');
 const citiesContainer = document.getElementById('selected-city-weather-container');
 const fiveDayForecastContainer = document.getElementById('five-day-forecast-container');
+const homeCity = document.getElementById('home-city');
 
 function updateCities() {
     citiesSearchedUl.innerHTML = '';
@@ -43,22 +44,34 @@ if (storedInput) {
 }
 
 //displays the last value input into the search field
+const destinationCity = document.getElementById('destination-city');
 function persistInput(input) {
-    let key = "input-" + city.id; //id of input field
+    let key = "input-" + destinationCity.id; //id of input field
     let storedValue = localStorage.getItem(key);
     if (storedValue)
         input.value = storedValue;
-        city.addEventListener('input', function() {
-            localStorage.setItem(key, city.value);
+        destinationCity.addEventListener('input', function() {
+            localStorage.setItem(key, destinationCity.value);
         })
 }
-persistInput(city);
+persistInput(destinationCity);
+
+function homeCityPersistInput(input) {
+    let key = "input-" + homeCity.id;
+    let storedValue = localStorage.getItem(key);
+    if (storedValue)
+        input.value = storedValue;
+        homeCity.addEventListener('input', function() {
+            localStorage.setItem(key, homeCity.value);
+        })
+}
+homeCityPersistInput(homeCity);
 
 //set date and grabs the variables need for the weather values
 const selectedCity = document.getElementById('selected-city');
-const cityName = cityInputField.value;
+let destinationCityName = cityInputField.value;
 const now = luxon.DateTime.now().setZone('America/Los_Angeles').toLocaleString();
-selectedCity.innerHTML = cityName + " " + now;
+selectedCity.innerHTML = destinationCityName + " " + now;
 
 const temperature =document.getElementById('temperature');
 const wind = document.getElementById('wind');
@@ -93,7 +106,7 @@ const day5WeatherImage = document.getElementById('day-5-weather-image');
 //performs searches on the apis to get lat and lon and then the weather for the city and then the 5 day forecast
 function performSearches(search) {
   const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
-  let parameters = "limit=1&appid=203481f675fae76832d631c5ecaa6b09&q=" + encodeURIComponent(cityName);
+  let parameters = "limit=1&appid=203481f675fae76832d631c5ecaa6b09&q=" + encodeURIComponent(destinationCityName);
   const fullURL = baseURL + parameters;
   let lat;
   let lon;
@@ -107,6 +120,8 @@ function performSearches(search) {
       lon = data[0].lon;
       const baseWeatherURL = "https://api.openweathermap.org/data/2.5/weather?&appid=203481f675fae76832d631c5ecaa6b09&units=imperial&lang=en"
       weatherParameters = "&lat=" +encodeURIComponent(lat) + "&lon=" + encodeURIComponent(lon);
+      //console.log(lat);
+      //console.log(lon);
       const fullWeatherURL = baseWeatherURL + weatherParameters;
       return fetch(fullWeatherURL);
     })
@@ -163,79 +178,98 @@ performSearches();
 
 //if a city in the list is clicked this run the searches again based on the city that was clicked
 function handleClick(e) {
-  cityName = e.target.textContent;
+  destinationCityName = e.target.textContent;
   performSearches();
-  currentCity.innerHTML = cityName + " " + now;
+  lookUpDestinationAirport();
+  lookUpHomeAirport();
+  selectedCity.innerHTML = destinationCityName + " " + now;
 }
 for(i=0; i<listEL.length; i++){
   listEL[i].addEventListener('click', handleClick);
 }
+let iata_code;
+let dl; //destionation airport code
+// https://airlabs.co/api/v9/nearby?lat=-6.1744&lng=106.8294&distance=20&api_key=2de51778-e1e8-44b5-9373-5466068521b1
+function lookUpDestinationAirport(search) {
+    const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
+  let parameters = "limit=1&appid=203481f675fae76832d631c5ecaa6b09&q=" + encodeURIComponent(destinationCityName);
+  const fullURL = baseURL + parameters;
+  let lat;
+  let lon;
+  let latAndLong;
+  fetch(fullURL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data){ 
+      lat = data[0].lat;
+      lon = data[0].lon;
+      let dl;
+      const baseAirportURL = "https://airlabs.co/api/v9/nearby?SameSite=Strict&distance=100&api_key=2de51778-e1e8-44b5-9373-5466068521b1";
+      latAndLong = "&lat=" +encodeURIComponent(lat) + "&lng=" + encodeURIComponent(lon);
+      const fullAirportCodeURL = baseAirportURL + latAndLong;
+      return fetch(fullAirportCodeURL)
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data){
+        data.response.airports.sort((a,b) => b.popularity - a.popularity);
+        dl = data.response.airports[0].iata_code;
+        console.log(dl);
+    })
+}
 
-//Datepicker widget
-// $(function () {
-//     $("#datepicker").datepicker({ minDate: 0, maxDate: '+10D'
-//     });
-   
-// });
+lookUpDestinationAirport();
+const homeCityInputField = document.getElementById('home-city');
+let homeCityName = homeCityInputField.value;
+let ol; //original location airport code
 
+function lookUpHomeAirport(search) {
+    const baseURL = "https://api.openweathermap.org/geo/1.0/direct?"
+  let parameters = "limit=1&appid=203481f675fae76832d631c5ecaa6b09&q=" + encodeURIComponent(homeCityName);
+  const fullURL = baseURL + parameters;
+  let lat;
+  let lon;
+  let latAndLong;
+  fetch(fullURL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data){ 
+      lat = data[0].lat;
+      lon = data[0].lon;
+      const baseAirportURL = "https://airlabs.co/api/v9/nearby?SameSite=Strict&distance=100&api_key=2de51778-e1e8-44b5-9373-5466068521b1";
+      latAndLong = "&lat=" +encodeURIComponent(lat) + "&lng=" + encodeURIComponent(lon);
+      const fullAirportCodeURL = baseAirportURL + latAndLong;
+      return fetch(fullAirportCodeURL)
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data){
+        data.response.airports.sort((a,b) => b.popularity - a.popularity);
+        ol = data.response.airports[0].iata_code;    
+        console.log(ol);    
+    })
+}
+lookUpHomeAirport();
 
-
-//form submit console log inputs
-// var handleFormSubmit = function (event) {
-//     event.preventDefault();
-
-//     var tempInput = tempInputEl.value;
-//     var dateInput = dateInputEl.val();
-
-    
-
-//     console.log(tempInput);
-//     console.log(dateInput);
-
-   
-   
-// };
-
-
-
-// formEl.addEventListener('submit', handleFormSubmit);
-
-
-//recreation.gov API
-// Curl
-// curl -X 'GET' \
-//   'https://ridb.recreation.gov/api/v1/campsites?limit=50&offset=0' \
-//   -H 'accept: application/json'
-//Base URL
-//https://ridb.recreation.gov/api/v1
-//API key
-//'apikey: 28893f32-2f30-41d5-88d5-c57a0066f8d7'
-//CORS https://rapidapi.com/pgarciamaurino/api/http-cors-proxy/details
-//recreation.gov does not work on CORs either :( need to change idea
-// use this -> https://rapidapi.com/apidojo/api/travel-advisor/
-
-
-
-// function performSearch(){
-//     var baseURL = 'https://ridb.recreation.gov/api/v1/campsites?limit=50&offset=0'; 
-//     fetch(baseURL,{headers: {apikey: '28893f32-2f30-41d5-88d5-c57a0066f8d7'}})
-//     .then (function(response) {
-//         return response.json();
-//     })
-//     .then (function(data){
-//         console.log(data);
-//     })
-// };
-// console.log(performSearch());
-
-// function performSearch(search){
-//     baseURL = 'https://maps.openweathermap.org/maps/2.0/weather/TA2/1/1/1?appid=203481f675fae76832d631c5ecaa6b09'; //I don't know what values to put for z, x and y so I just put 1 for now
-//     fetch(baseURl)
-//     .then (function(response) {
-//         return response.json();
-//     })
-//     .then (function(data){
-//         console.log(data);
-//     })
-// };
-
+function getFlights() {
+    const baseFlightURL = "https://travel-advisor.p.rapidapi.com/flights/create-session" 
+    let parameters = "&ol" + encodeURIComponent(ol) + "&dl" + encodeURIComponent(dl);
+    const fullFlightURL = baseFlightURL + parameters;
+    fetch(fullFlightURL,     {
+        headers: {
+            'X-RapidAPI-Key': '42ae92183emshf6bb70ea2c4e2bcp1bfb1ejsndf54e9e4f409',
+    'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
+        }
+    })
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(data){
+            console.log(data);
+        })
+}
+//getFlights();
