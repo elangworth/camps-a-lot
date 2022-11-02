@@ -1,33 +1,33 @@
-# camps-a-lot
+# Flight Tonight 
 
-Group: UC Berkeley’s Finest
-Emily Langworth
-Alex Lares
-Mariama Bah
-Braxton Waxdeck
+#Description
+In this project we used a form to ask users were they live and where they want to go. Once they search, they can the view the current weather and the 5 day forecast for where they want to go. If they don't like the weather there, they can serach again. They can click on past cities to go back and look at the weather again. To get flight data users will need to click on the destination city again. The flight data will show them one flight that goes from the most popular airport in their area to the most popular airport in the destination area. 
 
-Project Title: Camps o’ Lot
+#Live Link
+https://elangworth.github.io/camps-a-lot/
 
-Project Description: This project is for people who like to camp, but are always worried about what the weather might be. If this sounds like you, then Travels o’ Lot will be your new best friend. Camps o’ Lot works works with 3 easy enough steps:
-First, you select the weather you would like for your camping trip
-Next, you’ll see a list of potential areas with that weather
-Finally, pack your bags and have fun camping!
+#User Story
+As someone who likes to travel last minute, I would like to be able to search for a destination and see what the weather is going to be like in the next few days. Then I would like to see if there is a flight from where I am to that destination. 
+
+#Technologies used:
+
+Bulma (CSS Framework)
+Open Weather API
+AirLab Data API
+Luxon DateTime
 
 
-User Story: 
-As someone who likes to travel last minute, I would like to be able to look up places where the weather is going be nice, so that I have a great time camping.
+#Acceptance Criteria
+Use a CSS framework other than Bootstrap.
+Be deployed to GitHub Pages.
+Be interactive (i.e: accept and respond to user input).
+Use at least two server-side APIs.
+Does not use alerts, confirms, or prompts (use modals).
+Use client-side storage to store persistent data.
+Be responsive.
+Have a polished UI.
+Have a clean repository that meets quality coding standards (file structure, naming conventions, follows best practices for class/id-naming conventions, indentation, quality comments, etc.).
+Have a quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
+Finally, You must add your project to the portfolio that you created in Module 2.
 
-Wire Frame:
-https://www.figma.com/file/cTSL0JFT0C6ffGYIKVpoz2/Wire-Frame-Sketch-of-Weather-Based-Travel?node-id=0%3A1 
-
-Third Party API’s to use:
-https://openweathermap.org/api
-https://ridb.recreation.gov/docs 
-
-Rough Breakdown of Tasks
-Setup Project in GitHub
-Temperature select tool
-Date selection tool
-Display temperatures on map
-List campsites for map area
-Style the application
+<img width="967" alt="Screen Shot 2022-11-01 at 3 29 22 PM" src="https://user-images.githubusercontent.com/32778860/199354151-3b390d33-586f-4f28-8802-a0ce5b461576.png">
