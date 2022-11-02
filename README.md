@@ -9,6 +9,14 @@ https://elangworth.github.io/camps-a-lot/
 #User Story
 As someone who likes to travel last minute, I would like to be able to search for a destination and see what the weather is going to be like in the next few days. Then I would like to see if there is a flight from where I am to that destination. 
 
+#Technologies used:
+
+Bulma (CSS Framework)
+Open Weather API
+AirLab Data API
+Luxon DateTime
+
+
 #Acceptance Criteria
 Use a CSS framework other than Bootstrap.
 Be deployed to GitHub Pages.
