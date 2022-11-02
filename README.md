@@ -11,11 +11,13 @@ As someone who likes to travel last minute, I would like to be able to search fo
 
 #Technologies used:
 
-Bulma (CSS Framework)
-Open Weather API
-AirLab Data API
-Luxon DateTime
-
+Bulma (CSS Framework),
+Open Weather API,
+AirLab Data API,
+Luxon DateTime,
+HTML,
+CSS,
+JavaScript
 
 #Acceptance Criteria
 Use a CSS framework other than Bootstrap.
